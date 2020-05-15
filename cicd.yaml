@@ -6,7 +6,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
+  Azure subscription: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
   imageRepository: 'swamyhub/angular-app-kubernetes'
   containerRegistry: 'acrmyrepo.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/**Dockerfile'
@@ -30,7 +30,7 @@ stages:
         command: buildAndPush
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
+        containerRegistry: $(Azure subscription)
     
 	  - task: CopyFiles@2
       displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
