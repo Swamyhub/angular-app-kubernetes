@@ -7,8 +7,8 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   azureContainerRegistry: '{"loginServer":"acrmyrepo.azurecr.io", "id" : "/subscriptions/682dd606-2ce1-4fb4-82a1-c43b84176c35/resourceGroups/acrrepo/providers/Microsoft.ContainerRegistry/registries/acrmyrepo"}'
-    # dockerfilePath: '$(Build.Repository.Name)/Dockerfile'
-	# tag: '$(Build.BuildId)'
+    dockerfilePath: '$(Build.Repository.Name)/Dockerfile'
+	tag: '$(Build.BuildId)'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -38,10 +38,12 @@ stages:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
-
-- stage: Deploy
-  displayName: Deploy and MyDeploy
-     vmImage: $(vmImageName)	  
+    steps:
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace tokens in deployment.azure.yaml'
+      inputs:
+      rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
+      targetFiles: deployment.azure.yaml
 	steps:
     - task: Kubernetes@0
       displayName: 'kubectl apply'
