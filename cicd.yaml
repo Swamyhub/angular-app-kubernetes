@@ -10,9 +10,7 @@ variables:
   imageRepository: 'swamyhub/angular-app-kubernetes'
   dockerfilePath: '{$(Build.Repository.Name)/Dockerfile}'
   tag: '$(Build.BuildId)'
-  
-  # Agent VM image name
-  vmImageName: 'ubuntu-latest'
+  vmImageName: 'ubuntu-latest' # Agent VM image name
 
 stages:
 - stage: Build
