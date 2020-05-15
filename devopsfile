@@ -1,0 +1,57 @@
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+  # Container registry service connection established during pipeline creation
+  azureContainerRegistry: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
+  imageRepository: 'swamyhub/angular-app-kubernetes'
+  dockerfilePath: '{$(Build.Repository.Name)/Dockerfile}'
+  tag: '$(Build.BuildId)'
+  vmImageName: 'ubuntu-latest' # Agent VM image name
+
+stages:
+- stage: Build
+  displayName: Build and push stage
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Build and push an image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(imageRepository)
+        dockerfile: $(dockerfilePath)
+        containerRegistry: $(azureContainerRegistry)
+    
+	  - task: CopyFiles@2
+      displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
+      inputs:
+        contents: deployment.azure.yaml
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+    steps:
+    - task: qetza.replacetokens.replacetokens-task.replacetokens@3
+      displayName: 'Replace tokens in deployment.azure.yaml'
+      inputs:
+      rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
+      targetFiles: deployment.azure.yaml
+	steps:
+    - task: Kubernetes@0
+      displayName: 'kubectl apply'
+      inputs:
+        kubernetesServiceConnection: myresorceconnection
+        command: apply
+        useConfigurationFile: true
+        configuration: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
+
+  
+
+
