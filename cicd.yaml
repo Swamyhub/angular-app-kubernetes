@@ -6,8 +6,8 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  imageRepository: 'swamyhub/angular-app-kubernetes'
-	dockerfilePath: '$(Build.Repository.Name)/Dockerfile'
+  imageRepository: 'swamyhub//angular-app-kubernetes'
+	dockerfilePath: '$(Build.Repository.Name)//Dockerfile'
 	tag: '$(Build.BuildId)'
   
   # Agent VM image name
