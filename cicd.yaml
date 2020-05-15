@@ -9,7 +9,7 @@ variables:
   dockerRegistryServiceConnection: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
   imageRepository: 'swamyhub/angular-app-kubernetes'
   containerRegistry: 'acrmyrepo.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/MvcApp/Dockerfile'
+  dockerfilePath: '$(Build.SourcesDirectory)/**Dockerfile'
   tag: '$(Build.BuildId)'
   
   # Agent VM image name
@@ -32,7 +32,7 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(dockerRegistryServiceConnection)
     
-	- task: CopyFiles@2
+	  - task: CopyFiles@2
       displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
       inputs:
         contents: deployment.azure.yaml
@@ -41,10 +41,6 @@ stages:
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
 
-- stage: Deploy
-  displayName: Deploy and MyDeploy
-     vmImage: $(vmImageName)	  
-	steps:
     - task: Kubernetes@0
       displayName: 'kubectl apply'
       inputs:
