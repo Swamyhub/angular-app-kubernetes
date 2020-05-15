@@ -41,7 +41,7 @@ stages:
       inputs:
       rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
       targetFiles: deployment.azure.yaml
-	  steps:
+    steps:
     - task: Kubernetes@0
       displayName: 'kubectl apply'
       inputs:
