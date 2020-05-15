@@ -31,7 +31,7 @@ stages:
         dockerfile: $(dockerfilePath)
         containerRegistry: $(azureContainerRegistry)
     
-	- task: CopyFiles@2
+	  - task: CopyFiles@2
       displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
       inputs:
         contents: deployment.azure.yaml
