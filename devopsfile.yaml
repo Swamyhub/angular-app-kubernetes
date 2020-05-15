@@ -39,7 +39,7 @@ stages:
     - task: qetza.replacetokens.replacetokens-task.replacetokens@3
       displayName: 'Replace tokens in deployment.azure.yaml'
       inputs:
-      rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
+      rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-CI (5)/drop/deployment.azure.yaml'
       targetFiles: deployment.azure.yaml
     steps:
     - task: Kubernetes@0
@@ -48,7 +48,7 @@ stages:
         kubernetesServiceConnection: myresorceconnection
         command: apply
         useConfigurationFile: true
-        configuration: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
+        configuration: '$(System.DefaultWorkingDirectory)/_AKSDeploy-CI (5)/drop/deployment.azure.yaml'
 
   
 
