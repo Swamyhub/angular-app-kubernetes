@@ -1,4 +1,4 @@
-trigger:
+  trigger:
 - master
 
 resources:
@@ -6,9 +6,10 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  imageRepository: 'swamyhub//angular-app-kubernetes'
-	dockerfilePath: '$(Build.Repository.Name)/src/Dockerfile'
-	tag: '$(Build.BuildId)'
+  azureContainerRegistry: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
+    imageRepository: 'swamyhub/angular-app-kubernetes'
+	dockerfilePath: '$(Build.Repository.Name)/Dockerfile'
+	tag: '17'
   
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -53,6 +54,5 @@ stages:
         useConfigurationFile: true
         configuration: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
 
-  
-
-
+	dockerfilePath: '$(Build.Repository.Name)/Dockerfile'
+	tag: '$(Build.BuildId)'
