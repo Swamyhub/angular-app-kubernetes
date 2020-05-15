@@ -40,8 +40,11 @@ stages:
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
-	  
-	  steps:
+
+- stage: Deploy
+  displayName: Deploy and MyDeploy
+     vmImage: $(vmImageName)	  
+	steps:
     - task: Kubernetes@0
       displayName: 'kubectl apply'
       inputs:
