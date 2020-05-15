@@ -28,13 +28,11 @@ stages:
         repository: $(imageRepository)
         dockerfile: $(dockerfilePath)
         containerRegistry: $(azureContainerRegistry)
-    
-	  - task: CopyFiles@2
+    - task: CopyFiles@2
       displayName: 'Copy Files to: $(Build.ArtifactStagingDirectory)'
       inputs:
         contents: deployment.azure.yaml
         targetFolder: '$(Build.ArtifactStagingDirectory)'
-
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
     steps:
@@ -43,7 +41,7 @@ stages:
       inputs:
       rootDirectory: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
       targetFiles: deployment.azure.yaml
-	steps:
+	  steps:
     - task: Kubernetes@0
       displayName: 'kubectl apply'
       inputs:
