@@ -6,7 +6,7 @@ resources:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '5de08690-6185-4b55-9f66-4e5dc03a25a2'
+  dockerRegistryServiceConnection: '682dd606-2ce1-4fb4-82a1-c43b84176c35'
   imageRepository: 'swamyhub/angular-app-kubernetes'
   containerRegistry: 'acrmyrepo.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/MvcApp/Dockerfile'
