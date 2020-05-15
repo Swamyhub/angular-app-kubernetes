@@ -7,7 +7,7 @@ resources:
 variables:
   # Container registry service connection established during pipeline creation
   azureContainerRegistry: '{"loginServer":"acrmyrepo.azurecr.io", "id" : "/subscriptions/682dd606-2ce1-4fb4-82a1-c43b84176c35/resourceGroups/acrrepo/providers/Microsoft.ContainerRegistry/registries/acrmyrepo"}'
-    dockerFile: '$(Build.SourcesDirectory)/**Dockerfile'
+    dockerFile: 'Dockerfile'
     tag: '$(Build.BuildId)'
   
   # Agent VM image name
