@@ -52,7 +52,3 @@ stages:
         command: apply
         useConfigurationFile: true
         configuration: '$(System.DefaultWorkingDirectory)/_AKSDeploy-Docker container-CI (1)/drop/deployment.azure.yaml'
-
-  
-
-© 2020 GitHub, Inc.
